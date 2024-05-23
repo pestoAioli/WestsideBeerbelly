@@ -68,6 +68,12 @@ defmodule WestsideBeerbellyWeb.Router do
       on_mount: [{WestsideBeerbellyWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+      live "/workouts", WorkoutLive.Index, :index
+      live "/workouts/new", WorkoutLive.Index, :new
+      live "/workouts/:id/edit", WorkoutLive.Index, :edit
+
+      live "/workouts/:id", WorkoutLive.Show, :show
+      live "/workouts/:id/show/edit", WorkoutLive.Show, :edit
     end
   end
 
