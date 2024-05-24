@@ -12,6 +12,14 @@ defmodule WestsideBeerbellyWeb.UserSettingsLive do
 
     <div class="space-y-12 divide-y">
       <div>
+        <.simple_form for={@name_form} id="name_form" phx-submit="update_name">
+          <.input field={@name_form[:name]} type="text" label="Name" required />
+          <:actions>
+            <.button phx-disable-with="Changing...">Change Name</.button>
+          </:actions>
+        </.simple_form>
+      </div>
+      <div>
         <.simple_form
           for={@email_form}
           id="email_form"
@@ -90,13 +98,16 @@ defmodule WestsideBeerbellyWeb.UserSettingsLive do
     user = socket.assigns.current_user
     email_changeset = Accounts.change_user_email(user)
     password_changeset = Accounts.change_user_password(user)
+    name_changeset = Accounts.change_user_name(user)
 
     socket =
       socket
       |> assign(:current_password, nil)
       |> assign(:email_form_current_password, nil)
       |> assign(:current_email, user.email)
+      |> assign(:current_name, user.name)
       |> assign(:email_form, to_form(email_changeset))
+      |> assign(:name_form, to_form(name_changeset))
       |> assign(:password_form, to_form(password_changeset))
       |> assign(:trigger_submit, false)
 
@@ -149,6 +160,7 @@ defmodule WestsideBeerbellyWeb.UserSettingsLive do
 
   def handle_event("update_password", params, socket) do
     %{"current_password" => password, "user" => user_params} = params
+    IO.inspect(params)
     user = socket.assigns.current_user
 
     case Accounts.update_user_password(user, password, user_params) do
@@ -159,6 +171,24 @@ defmodule WestsideBeerbellyWeb.UserSettingsLive do
           |> to_form()
 
         {:noreply, assign(socket, trigger_submit: true, password_form: password_form)}
+
+      {:error, changeset} ->
+        {:noreply, assign(socket, password_form: to_form(changeset))}
+    end
+  end
+
+  def handle_event("update_name", params, socket) do
+    %{"current_name" => name, "user" => user_params} = params
+    user = socket.assigns.current_user
+
+    case Accounts.update_user_name(user, name, user_params) do
+      {:ok, user} ->
+        name_form =
+          user
+          |> Accounts.change_user_name(user_params)
+          |> to_form()
+
+        {:noreply, assign(socket, trigger_submit: true, name_form: name_form)}
 
       {:error, changeset} ->
         {:noreply, assign(socket, password_form: to_form(changeset))}

@@ -7,7 +7,11 @@ defmodule WestsideBeerbellyWeb.PageLive do
 
   def render(assigns) do
     ~H"""
-    <div>hello</div>
+    <div>
+      <%= if @current_user do %>
+        Welcome back, <%= @current_user.email %>
+      <% end %>
+    </div>
     """
   end
 end

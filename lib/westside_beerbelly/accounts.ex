@@ -108,6 +108,10 @@ defmodule WestsideBeerbelly.Accounts do
     User.email_changeset(user, attrs, validate_email: false)
   end
 
+  def change_user_name(user, attrs \\ %{}) do
+    User.name_changeset(user, attrs, validate_email: false)
+  end
+
   @doc """
   Emulates that the email will change without actually changing
   it in the database.
@@ -208,6 +212,20 @@ defmodule WestsideBeerbelly.Accounts do
     Ecto.Multi.new()
     |> Ecto.Multi.update(:user, changeset)
     |> Ecto.Multi.delete_all(:tokens, UserToken.by_user_and_contexts_query(user, :all))
+    |> Repo.transaction()
+    |> case do
+      {:ok, %{user: user}} -> {:ok, user}
+      {:error, :user, changeset, _} -> {:error, changeset}
+    end
+  end
+
+  def update_user_name(user, name, attrs) do
+    changeset =
+      user
+      |> User.name_changeset(attrs)
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.update(:user, changeset)
     |> Repo.transaction()
     |> case do
       {:ok, %{user: user}} -> {:ok, user}
