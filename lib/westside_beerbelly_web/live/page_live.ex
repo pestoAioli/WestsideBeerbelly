@@ -9,7 +9,7 @@ defmodule WestsideBeerbellyWeb.PageLive do
     ~H"""
     <div>
       <%= if @current_user do %>
-        Welcome back, <%= @current_user.email %>
+        Welcome back, <%= @current_user.name %>
       <% end %>
     </div>
     """

@@ -219,7 +219,7 @@ defmodule WestsideBeerbelly.Accounts do
     end
   end
 
-  def update_user_name(user, name, attrs) do
+  def update_user_name(user, attrs) do
     changeset =
       user
       |> User.name_changeset(attrs)

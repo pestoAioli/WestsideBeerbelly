@@ -178,20 +178,21 @@ defmodule WestsideBeerbellyWeb.UserSettingsLive do
   end
 
   def handle_event("update_name", params, socket) do
-    %{"current_name" => name, "user" => user_params} = params
+    IO.inspect(params)
+    %{"user" => %{"name" => name}} = params
     user = socket.assigns.current_user
 
-    case Accounts.update_user_name(user, name, user_params) do
+    case Accounts.update_user_name(user, %{"name" => name}) do
       {:ok, user} ->
         name_form =
           user
-          |> Accounts.change_user_name(user_params)
+          |> Accounts.change_user_name(%{"name" => name})
           |> to_form()
 
         {:noreply, assign(socket, trigger_submit: true, name_form: name_form)}
 
       {:error, changeset} ->
-        {:noreply, assign(socket, password_form: to_form(changeset))}
+        {:noreply, assign(socket, name_form: to_form(changeset))}
     end
   end
 end
