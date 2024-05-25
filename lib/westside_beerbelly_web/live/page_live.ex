@@ -9,7 +9,9 @@ defmodule WestsideBeerbellyWeb.PageLive do
     ~H"""
     <div>
       <%= if @current_user do %>
-        Welcome back, <%= @current_user.name %>
+        <.header>
+          Welcome back, <%= @current_user.name %>. Here are the last 12 max effort exercises you've done:
+        </.header>
       <% end %>
     </div>
     """

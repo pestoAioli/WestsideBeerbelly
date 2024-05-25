@@ -1,13 +1,17 @@
 <header class="px-4 sm:px-6 lg:px-8">
-  <div class="flex items-center justify-between border-b border-zinc-100 py-3 text-sm pt-0">
+  <div class="flex items-center justify-between border-b border-zinc-100 py-3 text-sm">
     <div class="flex items-center gap-4">
       <a href="/">
         <img src={~p"/images/westside.jpg"} width="144" />
       </a>
     </div>
+    <div class="flex items-center gap-4 font-semibold leading-6 text-zinc-900"></div>
+    <.link navigate={~p"/workouts"}>
+      <.button>View/edit/create</.button>
+    </.link>
   </div>
 </header>
-<main class="px-4 py-2 sm:px-6 lg:px-8">
+<main class="px-4 py-20 sm:px-6 lg:px-8">
   <div class="mx-auto max-w-2xl">
     <.flash_group flash={@flash} />
     <%= @inner_content %>
