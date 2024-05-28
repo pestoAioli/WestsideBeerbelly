@@ -18,7 +18,7 @@ defmodule WestsideBeerbelly.Workouts.Workout do
   @doc false
   def changeset(workout, attrs) do
     workout
-    |> cast(attrs, [:type, :date, :name, :weight, :reps, :sets, :comments])
-    |> validate_required([:type, :date, :name, :weight, :reps, :sets, :comments])
+    |> cast(attrs, [:type, :date, :name, :weight, :reps, :sets, :comments, :user_id])
+    |> validate_required([:type, :date, :name, :weight, :reps, :sets, :comments, :user_id])
   end
 end

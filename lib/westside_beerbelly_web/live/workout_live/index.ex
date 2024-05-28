@@ -4,8 +4,11 @@ defmodule WestsideBeerbellyWeb.WorkoutLive.Index do
   alias WestsideBeerbelly.Workouts
   alias WestsideBeerbelly.Workouts.Workout
 
+  on_mount {WestsideBeerbellyWeb.UserAuth, :mount_current_user}
+
   @impl true
   def mount(_params, _session, socket) do
+    IO.inspect(socket.assigns)
     {:ok, stream(socket, :workouts, Workouts.list_workouts())}
   end
 
@@ -30,6 +33,7 @@ defmodule WestsideBeerbellyWeb.WorkoutLive.Index do
     socket
     |> assign(:page_title, "Listing Workouts")
     |> assign(:workout, nil)
+    |> assign(:current_user_id, socket.assigns.current_user.id)
   end
 
   @impl true

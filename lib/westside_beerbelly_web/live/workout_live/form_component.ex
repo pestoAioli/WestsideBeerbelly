@@ -5,6 +5,9 @@ defmodule WestsideBeerbellyWeb.WorkoutLive.FormComponent do
 
   @impl true
   def render(assigns) do
+    IO.inspect("asdfasdfasdfasdfasdfasdfadfasdf")
+    IO.inspect(assigns)
+
     ~H"""
     <div>
       <.header>
@@ -26,6 +29,7 @@ defmodule WestsideBeerbellyWeb.WorkoutLive.FormComponent do
         <.input field={@form[:reps]} type="number" label="Reps" />
         <.input field={@form[:sets]} type="number" label="Sets" />
         <.input field={@form[:comments]} type="text" label="Comments" />
+        <.input field={@form[:user_id]} type="hidden" value={@current_user_id} />
         <:actions>
           <.button phx-disable-with="Saving...">Save Workout</.button>
         </:actions>
