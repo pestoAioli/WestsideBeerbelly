@@ -43,7 +43,9 @@ defmodule WestsideBeerbelly.Workouts do
   end
 
   def get_last_twelve_max() do
-    workout = from w in Workout, where: ilike(w.type, "%max%"), limit: 12
+    workout =
+      from w in Workout, where: ilike(w.type, "%max%"), order_by: [desc: w.date], limit: 12
+
     Repo.all(workout)
   end
 
