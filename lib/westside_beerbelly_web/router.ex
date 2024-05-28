@@ -69,8 +69,10 @@ defmodule WestsideBeerbellyWeb.Router do
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
       live "/workouts", WorkoutLive.Index, :index
       live "/workouts/new", WorkoutLive.Index, :new
-      live "/workouts/:id/edit", WorkoutLive.Index, :edit
 
+      live "/workouts/last_twelve", WorkoutLive.LastTwelve, :index
+
+      live "/workouts/:id/edit", WorkoutLive.Index, :edit
       live "/workouts/:id", WorkoutLive.Show, :show
       live "/workouts/:id/show/edit", WorkoutLive.Show, :edit
     end

@@ -1,10 +1,5 @@
 <.header>
-  All Of Your Workouts
-  <:actions>
-    <.link patch={~p"/workouts/new"}>
-      <.button>New Workout</.button>
-    </.link>
-  </:actions>
+  Last Twelve Max Days:
 </.header>
 
 <.table
@@ -34,19 +29,4 @@
     </.link>
   </:action>
 </.table>
-
-<.modal
-  :if={@live_action in [:new, :edit]}
-  id="workout-modal"
-  show
-  on_cancel={JS.patch(~p"/workouts")}
->
-  <.live_component
-    module={WestsideBeerbellyWeb.WorkoutLive.FormComponent}
-    id={@workout.id || :new}
-    title={@page_title}
-    action={@live_action}
-    workout={@workout}
-    patch={~p"/workouts"}
-  />
-</.modal>
+<.back navigate={~p"/"}>Back to homepage</.back>

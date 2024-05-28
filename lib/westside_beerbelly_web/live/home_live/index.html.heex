@@ -4,13 +4,13 @@
       Welcome back, <%= @current_user.name %>.
     </.header>
     <div>
-      <.link navigate={~p"/last_twelve"}>
+      <.link navigate={~p"/workouts/last_twelve"}>
         <.button class="mt-2">view last 12 max effort days</.button>
       </.link>
-      <.link navigate={~p"/workout_by_date"}>
+      <.link navigate={~p"/workouts/workout_by_date"}>
         <.button class="mt-2">find a workout by date</.button>
       </.link>
-      <.link navigate={~p"/progress"}>
+      <.link navigate={~p"/workouts/progress"}>
         <.button class="mt-2">see your progress on a particular lift</.button>
       </.link>
     </div>

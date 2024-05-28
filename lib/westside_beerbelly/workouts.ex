@@ -37,6 +37,16 @@ defmodule WestsideBeerbelly.Workouts do
   """
   def get_workout!(id), do: Repo.get!(Workout, id)
 
+  def get_workouts_by_date(date) do
+    workout = from w in Workout, where: w.date == ^date
+    Repo.all(workout)
+  end
+
+  def get_last_twelve_max() do
+    workout = from w in Workout, where: ilike(w.type, "%max%"), limit: 12
+    Repo.all(workout)
+  end
+
   @doc """
   Creates a workout.
 
