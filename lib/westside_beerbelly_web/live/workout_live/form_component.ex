@@ -29,7 +29,6 @@ defmodule WestsideBeerbellyWeb.WorkoutLive.FormComponent do
         <.input field={@form[:reps]} type="number" label="Reps" />
         <.input field={@form[:sets]} type="number" label="Sets" />
         <.input field={@form[:comments]} type="text" label="Comments" />
-        <.input field={@form[:user_id]} type="hidden" value={@current_user_id} />
         <:actions>
           <.button phx-disable-with="Saving...">Save Workout</.button>
         </:actions>
@@ -78,7 +77,9 @@ defmodule WestsideBeerbellyWeb.WorkoutLive.FormComponent do
   end
 
   defp save_workout(socket, :new, workout_params) do
-    case Workouts.create_workout(workout_params) do
+    IO.inspect(workout_params)
+
+    case Workouts.create_workout(socket.assigns.current_user_id, workout_params) do
       {:ok, workout} ->
         notify_parent({:saved, workout})
 

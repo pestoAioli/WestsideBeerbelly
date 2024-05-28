@@ -21,6 +21,11 @@ defmodule WestsideBeerbelly.Workouts do
     Repo.all(Workout)
   end
 
+  def list_user_workouts(user_id) do
+    workout = from w in Workout, where: w.user_id == ^user_id
+    Repo.all(workout)
+  end
+
   @doc """
   Gets a single workout.
 
@@ -42,9 +47,12 @@ defmodule WestsideBeerbelly.Workouts do
     Repo.all(workout)
   end
 
-  def get_last_twelve_max() do
+  def get_last_twelve_max(user_id) do
     workout =
-      from w in Workout, where: ilike(w.type, "%max%"), order_by: [desc: w.date], limit: 12
+      from w in Workout,
+        where: w.user_id == ^user_id and ilike(w.type, "%max%"),
+        order_by: [desc: w.date],
+        limit: 12
 
     Repo.all(workout)
   end
@@ -61,8 +69,8 @@ defmodule WestsideBeerbelly.Workouts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_workout(attrs \\ %{}) do
-    %Workout{}
+  def create_workout(user_id, attrs \\ %{}) do
+    %Workout{user_id: user_id}
     |> Workout.changeset(attrs)
     |> Repo.insert()
   end

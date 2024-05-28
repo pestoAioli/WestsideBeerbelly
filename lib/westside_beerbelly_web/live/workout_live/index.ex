@@ -9,7 +9,7 @@ defmodule WestsideBeerbellyWeb.WorkoutLive.Index do
   @impl true
   def mount(_params, _session, socket) do
     IO.inspect(socket.assigns)
-    {:ok, stream(socket, :workouts, Workouts.list_workouts())}
+    {:ok, stream(socket, :workouts, Workouts.list_user_workouts(socket.assigns.current_user.id))}
   end
 
   @impl true

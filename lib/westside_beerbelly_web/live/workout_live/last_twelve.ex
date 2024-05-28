@@ -4,9 +4,11 @@ defmodule WestsideBeerbellyWeb.WorkoutLive.LastTwelve do
   alias WestsideBeerbelly.Workouts
   # alias WestsideBeerbelly.Workouts.Workout
 
+  on_mount {WestsideBeerbellyWeb.UserAuth, :mount_current_user}
+
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :workouts, Workouts.get_last_twelve_max())}
+    {:ok, stream(socket, :workouts, Workouts.get_last_twelve_max(socket.assigns.current_user.id))}
   end
 
   @impl true
