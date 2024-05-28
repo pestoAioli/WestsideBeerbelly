@@ -19,6 +19,7 @@ defmodule WestsideBeerbellyWeb.Router do
 
   scope "/", WestsideBeerbellyWeb do
     pipe_through :browser
+    live "/", HomeLive.Index, :home
   end
 
   # Other scopes may use custom stacks.
@@ -72,7 +73,6 @@ defmodule WestsideBeerbellyWeb.Router do
 
       live "/workouts/:id", WorkoutLive.Show, :show
       live "/workouts/:id/show/edit", WorkoutLive.Show, :edit
-      live "/", PageLive, :home
     end
   end
 

@@ -1,0 +1,26 @@
+<div>
+  <%= if @current_user do %>
+    <.header>
+      Welcome back, <%= @current_user.name %>.
+    </.header>
+    <div>
+      <.link navigate={~p"/last_twelve"}>
+        <.button class="mt-2">view last 12 max effort days</.button>
+      </.link>
+      <.link navigate={~p"/workout_by_date"}>
+        <.button class="mt-2">find a workout by date</.button>
+      </.link>
+      <.link navigate={~p"/progress"}>
+        <.button class="mt-2">see your progress on a particular lift</.button>
+      </.link>
+    </div>
+  <% end %>
+  <%= if !@current_user do %>
+    <.header>
+      Welcome human, to save and view information about your workouts, please
+      <.link navigate={~p"/users/log_in"}>
+        <.button>login or register</.button>
+      </.link>
+    </.header>
+  <% end %>
+</div>
