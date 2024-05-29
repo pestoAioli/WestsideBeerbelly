@@ -1,0 +1,10 @@
+<.header>
+  Choose a date:
+</.header>
+<form id="date-form" phx-change="find">
+  <input field={:date} name="date" type="date" label="Date" />
+</form>
+<%= if @date_selected do %>
+  <div>yaya</div>
+<% end %>
+<.back navigate={~p"/"}>Back to homepage</.back>

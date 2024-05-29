@@ -32,7 +32,6 @@ defmodule WestsideBeerbellyWeb.WorkoutLive.Index do
     socket
     |> assign(:page_title, "Listing Workouts")
     |> assign(:workout, nil)
-    |> assign(:current_user_id, socket.assigns.current_user.id)
   end
 
   @impl true
