@@ -22,7 +22,7 @@ defmodule WestsideBeerbelly.Workouts do
   end
 
   def list_user_workouts(user_id) do
-    workout = from w in Workout, where: w.user_id == ^user_id
+    workout = from w in Workout, where: w.user_id == ^user_id, order_by: [desc: w.date]
     Repo.all(workout)
   end
 
