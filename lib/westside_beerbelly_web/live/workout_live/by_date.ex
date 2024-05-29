@@ -10,7 +10,7 @@ defmodule WestsideBeerbellyWeb.WorkoutLive.ByDate do
   def mount(_params, _session, socket) do
     {:ok,
      socket
-     |> assign(:date_selected, nil)
+     |> stream(:workouts, [])
      |> assign_form(%{})}
   end
 
@@ -21,8 +21,7 @@ defmodule WestsideBeerbellyWeb.WorkoutLive.ByDate do
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Last Twelve Max Days")
-    |> assign(:workout, nil)
+    |> assign(:page_title, "Choose by date")
   end
 
   defp assign_form(socket, changeset) do
@@ -33,8 +32,13 @@ defmodule WestsideBeerbellyWeb.WorkoutLive.ByDate do
   def handle_event("find", %{"date" => date}, socket) do
     IO.inspect(date)
 
+    socket = stream(socket, :workouts, [], reset: true)
+
     {:noreply,
-     socket
-     |> assign(:date_selected, date)}
+     stream(
+       socket,
+       :workouts,
+       Workouts.get_workouts_by_date(socket.assigns.current_user.id, date)
+     )}
   end
 end

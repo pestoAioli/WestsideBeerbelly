@@ -4,7 +4,31 @@
 <form id="date-form" phx-change="find">
   <input field={:date} name="date" type="date" label="Date" />
 </form>
-<%= if @date_selected do %>
-  <div>yaya</div>
-<% end %>
+<.table
+  id="workouts2"
+  rows={@streams.workouts}
+  row_click={fn {_id, workout} -> JS.navigate(~p"/workouts/#{workout}") end}
+>
+  <:col :let={{_id, workout}} label="Type"><%= workout.type %></:col>
+  <:col :let={{_id, workout}} label="Date"><%= workout.date %></:col>
+  <:col :let={{_id, workout}} label="Name"><%= workout.name %></:col>
+  <:col :let={{_id, workout}} label="Weight"><%= workout.weight %></:col>
+  <:col :let={{_id, workout}} label="Reps"><%= workout.reps %></:col>
+  <:col :let={{_id, workout}} label="Sets"><%= workout.sets %></:col>
+  <:col :let={{_id, workout}} label="Comments"><%= workout.comments %></:col>
+  <:action :let={{_id, workout}}>
+    <div class="sr-only">
+      <.link navigate={~p"/workouts/#{workout}"}>Show</.link>
+    </div>
+    <.link patch={~p"/workouts/#{workout}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, workout}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: workout.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
 <.back navigate={~p"/"}>Back to homepage</.back>
