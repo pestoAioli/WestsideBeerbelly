@@ -42,8 +42,8 @@ defmodule WestsideBeerbelly.Workouts do
   """
   def get_workout!(id), do: Repo.get!(Workout, id)
 
-  def get_workouts_by_date(date) do
-    workout = from w in Workout, where: w.date == ^date
+  def get_workouts_by_date(user_id, date) do
+    workout = from w in Workout, where: w.user_id == ^user_id and w.date == ^date
     Repo.all(workout)
   end
 
