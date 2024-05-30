@@ -21,7 +21,7 @@ defmodule WestsideBeerbellyWeb.WorkoutLive.Progress do
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Find workout by name")
+    |> assign(:page_title, "Check your progress")
   end
 
   defp assign_form(socket, changeset) do
