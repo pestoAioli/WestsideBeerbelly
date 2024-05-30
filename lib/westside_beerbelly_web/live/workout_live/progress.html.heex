@@ -1,0 +1,31 @@
+<.header>
+  Enter the name of a workout:
+</.header>
+<form id="name-form" phx-change="find2">
+  <input field={:name} name="name" type="text" label="Name" />
+</form>
+<.table
+  id="workouts2"
+  rows={@streams.workouts}
+  row_click={fn {_id, workout} -> JS.navigate(~p"/workouts/show_progress/#{workout}") end}
+>
+  <:col :let={{_id, workout}} label="Type"><%= workout.type %></:col>
+  <:col :let={{_id, workout}} label="Date"><%= workout.date %></:col>
+  <:col :let={{_id, workout}} label="Name"><%= workout.name %></:col>
+  <:col :let={{_id, workout}} label="Weight"><%= workout.weight %></:col>
+  <:col :let={{_id, workout}} label="Reps"><%= workout.reps %></:col>
+  <:col :let={{_id, workout}} label="Sets"><%= workout.sets %></:col>
+  <:col :let={{_id, workout}} label="Comments"><%= workout.comments %></:col>
+  <:action :let={{_id, workout}}>
+    <.link patch={~p"/workouts/#{workout}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, workout}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: workout.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+<.back navigate={~p"/"}>Back to homepage</.back>

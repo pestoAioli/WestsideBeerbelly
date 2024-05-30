@@ -47,6 +47,13 @@ defmodule WestsideBeerbelly.Workouts do
     Repo.all(workout)
   end
 
+  def get_workouts_by_name(user_id, keyword) do
+    search_term = "%#{keyword}%"
+    IO.inspect(search_term)
+    workouts = from w in Workout, where: w.user_id == ^user_id and ilike(w.name, ^search_term)
+    Repo.all(workouts)
+  end
+
   def get_last_twelve_max(user_id) do
     workout =
       from w in Workout,
