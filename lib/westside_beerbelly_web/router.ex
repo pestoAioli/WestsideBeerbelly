@@ -72,7 +72,7 @@ defmodule WestsideBeerbellyWeb.Router do
 
       live "/workouts/last_twelve", WorkoutLive.LastTwelve, :index
       live "/workouts/workout_by_date", WorkoutLive.ByDate, :index
-      live "/workouts/progress", WorkoutLive.Progress, :index
+      live "/workouts/by_name", WorkoutLive.ByName, :index
       live "/workouts/show_progress/:id", WorkoutLive.ShowProgress, :show_progress
 
       live "/workouts/:id/edit", WorkoutLive.Index, :edit

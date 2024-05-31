@@ -4,6 +4,7 @@
 <form id="name-form" phx-change="find2">
   <input field={:name} name="name" type="text" label="Name" />
 </form>
+<h2>(Click on one to see your progress on that specific exercise)</h2>
 <.table
   id="workouts2"
   rows={@streams.workouts}

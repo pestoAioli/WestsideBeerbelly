@@ -1,4 +1,4 @@
-defmodule WestsideBeerbellyWeb.WorkoutLive.Progress do
+defmodule WestsideBeerbellyWeb.WorkoutLive.ByName do
   use WestsideBeerbellyWeb, :live_view
 
   alias WestsideBeerbelly.Workouts
@@ -21,7 +21,7 @@ defmodule WestsideBeerbellyWeb.WorkoutLive.Progress do
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Check your progress")
+    |> assign(:page_title, "Find a workout by name")
   end
 
   defp assign_form(socket, changeset) do
