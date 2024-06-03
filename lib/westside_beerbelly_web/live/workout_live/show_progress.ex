@@ -15,13 +15,18 @@ defmodule WestsideBeerbellyWeb.WorkoutLive.ShowProgress do
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
     workout = Workouts.get_workout!(id)
+    [type_match | _rest] = String.split(workout.type, " ")
 
     {:noreply,
      socket
      |> assign(:page_title, "See your progress")
      |> assign(
        :workouts,
-       Workouts.get_workouts_by_name(socket.assigns.current_user.id, workout.name)
+       Workouts.get_workouts_by_name_and_type(
+         socket.assigns.current_user.id,
+         workout.name,
+         type_match
+       )
        |> Enum.map(fn w -> {DateTime.new!(w.date, ~T[00:00:00]), w.weight} end)
        |> IO.inspect()
      )
